@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, test } from 'vitest';
+import * as fc from 'fast-check';
 import { capitalize, toKebabCase, truncate, slugify } from './strings.js';
 
 describe('capitalize', () => {
@@ -62,5 +63,24 @@ describe('slugify', () => {
 
   it('returns empty string for only special characters', () => {
     expect(slugify('!@#$%')).toBe('');
+  });
+
+  test('property: output matches slug pattern', () => {
+    fc.assert(fc.property(fc.string(), (s) => {
+      const result = slugify(s);
+      return result === '' || /^[a-z0-9]+(-[a-z0-9]+)*$/.test(result);
+    }));
+  });
+
+  test('property: output length <= input length', () => {
+    fc.assert(fc.property(fc.string(), (s) => {
+      return slugify(s).length <= s.length;
+    }));
+  });
+
+  test('property: slugify is idempotent', () => {
+    fc.assert(fc.property(fc.string(), (s) => {
+      return slugify(slugify(s)) === slugify(s);
+    }));
   });
 });
