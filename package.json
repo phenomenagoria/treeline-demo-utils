@@ -22,6 +22,7 @@
   "homepage": "https://github.com/phenomenagoria/treeline-demo-utils#readme",
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "fast-check": "^4.7.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.4"
   }
