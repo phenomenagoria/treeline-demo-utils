@@ -23,3 +23,15 @@ export function truncate(s: string, maxLength: number): string {
   if (s.length <= maxLength) return s;
   return s.slice(0, maxLength - 3) + '...';
 }
+
+/**
+ * Convert a string to a URL-safe slug.
+ */
+export function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[\s_]+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-{2,}/g, '-')
+    .replace(/^-|-$/g, '');
+}
