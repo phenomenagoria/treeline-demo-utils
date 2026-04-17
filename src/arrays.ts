@@ -15,3 +15,18 @@ export function chunk<T>(arr: T[], size: number): T[][] {
   }
   return result;
 }
+
+/**
+ * Group array elements by a key returned from the given function.
+ */
+export function groupBy<T>(arr: T[], keyFn: (item: T) => string): Record<string, T[]> {
+  const result: Record<string, T[]> = {};
+  for (const item of arr) {
+    const key = keyFn(item);
+    if (result[key] === undefined) {
+      result[key] = [];
+    }
+    result[key].push(item);
+  }
+  return result;
+}
